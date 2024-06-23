@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Page Not Found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"
+        integrity="sha512-b/htz6gIyFi3dwSoZ0Uv3cuv3Ony7EeKkacgrcVg8CMzu90n777qveu0PBcbZUA7TzyENGtU+qZRuFAkfqgyoQ=="
+        crossorigin="anonymous"></script>
+</head>
+<style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+</style>
+<script>
+
+    function setup() {
+        canvas = createCanvas(windowWidth, windowHeight);
+        button = createButton("Take me BACK 🥺");
+        button.mouseClicked(goBack);
+        button.size(140, 80);
+        button.style('background-color',color(200,255,255));
+        button.center();
+        button.style("font-family","Comic Sans MS");
+        btn1 = createButton('BY PRITHVI');
+        btn1.style('background-color',color(200,255,255));
+        btn1.mouseClicked(goLink);
+        btn1.size(140, 80);
+        btn1.position(windowWidth - 140, windowHeight - 80);
+        btn1.style("font-family","Comic Sans MS");
+    }
+
+    function draw() {
+        textSize(32);
+        textFont("Comic Sans MS");
+
+        fill(['brown', 'orange', 'red'][frameCount % 3]);
+        if (frameCount % 13 == 0) { text(['404', 'Page Not Found'][Math.floor(Math.random() * 5)], mouseX, mouseY) }
+
+        text('🙁', Math.floor(random(0, 5)) * (width / 4) + width / 10, Math.floor(random(0, 5)) * (height / 4) + height / 10)
+
+    }
+
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        button.center();
+        btn1.position(windowWidth - 140, windowHeight - 80);
+    }
+
+    function goBack() {
+        console.log('Goin Back');
+        location.href = "/";
+    }
+
+    function goLink(){
+        location.href = 'https://github.com/prithviz';
+    }
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4PEVZ8PXQF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4PEVZ8PXQF');
+</script>
+</html>

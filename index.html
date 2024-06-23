@@ -1,0 +1,150 @@
+<html>
+<title>NapZap Random Genrative Art</title>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Major+Mono+Display&display=swap" rel="stylesheet">
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js" integrity="sha512-b/htz6gIyFi3dwSoZ0Uv3cuv3Ony7EeKkacgrcVg8CMzu90n777qveu0PBcbZUA7TzyENGtU+qZRuFAkfqgyoQ==" crossorigin="anonymous"></script>
+</head>
+<style>
+	.napzap{
+		color: white;
+		position: fixed;
+		padding: 20px;
+		bottom: 0;
+		display: inline-block;
+		cursor: pointer;
+		font-family: 'Major Mono Display', monospace;
+	}
+	.napzap:hover{
+		zoom:2;
+	}
+</style>
+<body style="margin: 0; overflow: hidden;">
+	<div class="napzap">NAPZAP</div>
+  <div id="tolink" class="napzap" style="right: 0">BY PRITHVI</div>
+</body>
+<script>
+document.getElementsByClassName('napzap')[0].addEventListener('click', function (event) {
+  location.href = "/gaussian-lines.html"
+  });
+document.getElementById('tolink').addEventListener('click', function (event) {
+  location.href = "https://github.com/prithviz/"
+  });
+</script>
+<script>
+var particles = [];
+var pPerRow = 200;
+var cIndex = 1;
+var noiseScale = 100;
+let button;
+
+
+function setup() {
+  colors = [
+    color(117, 213, 253, 60),
+    color(183, 108, 253, 60),
+    color(255, 34, 129, 60),
+    color(1, 31, 253, 60),
+    color(0, 160, 250, 60),
+    color(0, 150, 250, 60),
+    color(60, 250, 255, 60),
+    color(20, 150, 255, 60),
+    color(255, 150, 0, 60),
+    color(200, 190, 0, 60),
+    color(250, 190, 0, 60),
+  ];
+
+  createCanvas(
+    window.innerWidth,
+    window.innerHeight
+  );
+
+  background(0);
+  seedParticles();
+  button = createButton('Reset');
+  button.position(20, 20);
+  button.mousePressed(resetEnvironment);
+}
+
+function draw() {
+  particles.forEach(function(particle) {
+    particle.move();
+    particle.render();
+  });
+}
+
+function seedParticles() {
+  var wInterval = width / pPerRow;
+  var hInterval = height / pPerRow;
+  var paddingW = width / 300;
+  var paddingH = height / 300;
+
+  for (var i = paddingW; i <= width - paddingW; i+= wInterval) {
+    for (var j = paddingH; j <= height - paddingH; j += hInterval) {
+
+      var c = Math.round(
+        cIndex % colors.length
+      );
+      cIndex++;
+      var particle = new Particle(
+        i + randomGaussian(-20, 50),
+        j + randomGaussian(-20, 50),
+        c
+      );
+      particles.push(particle);
+    }
+  }
+}
+
+function Particle(x, y, colorIndex) {
+  this.position = createVector(x, y);
+  this.color = colorIndex;
+
+  this.move = function() {
+    var angleNoise = noise(
+      noise(this.position.x / noiseScale, this.position.y / noiseScale) * 0.5, // angle
+      noise(frameCount * noise(frameCount), frameCount / noise(frameCount)) / 500
+    ) * noiseScale;
+
+    var density = 0.97;
+
+    this.position.x += cos(cos(angleNoise) * (1.5 + noise(frameCount))) * density;
+    this.position.y += sin(sin(angleNoise) * (1.5 + noise(frameCount))) * density;
+  }
+
+  this.render = function() {
+    stroke(colors[this.color]);
+    point(
+      this.position.x,
+      // mouseX,
+      // mouseY
+      this.position.y
+    );
+  }
+}
+
+function resetEnvironment() {
+  particles = [];
+  seedParticles();
+  background(0);
+}
+
+function windowResized() {
+   createCanvas(
+    window.innerWidth,
+    window.innerHeight
+  );
+  resetEnvironment();
+}
+
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4PEVZ8PXQF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4PEVZ8PXQF');
+</script>
+</html>
