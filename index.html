@@ -1,5 +1,5 @@
-<html>
-<title>NapZap Random Genrative Art</title>
+<html lang="en">
+<title>Noisy Gaussian Lines</title>
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Major+Mono+Display&display=swap" rel="stylesheet">
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script> -->
@@ -33,9 +33,9 @@ document.getElementById('tolink').addEventListener('click', function (event) {
 </script>
 <script>
 var particles = [];
-var pPerRow = 200;
+var pPerRow = 10;
 var cIndex = 1;
-var noiseScale = 100;
+var noiseScale = 1000;
 let button;
 
 
@@ -109,7 +109,7 @@ function Particle(x, y, colorIndex) {
     var density = 0.97;
 
     this.position.x += cos(cos(angleNoise) * (1.5 + noise(frameCount))) * density;
-    this.position.y += sin(sin(angleNoise) * (1.5 + noise(frameCount))) * density;
+    this.position.y += sin(sin(angleNoise) * (11.5 + noise(frameCount))) * density;
   }
 
   this.render = function() {
